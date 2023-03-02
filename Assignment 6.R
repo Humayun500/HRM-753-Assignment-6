@@ -97,6 +97,7 @@ typeof (smkluc$age.chr)
 
 #b.Plot the proportion of dead by age group and by smoking status separately and comment on the observed trend.
 
+
 #make age as categorical data
 smkluc$age.cat= ifelse (smkluc$age == "9","80+",
                         ifelse (smkluc$age == "8","75-79",
@@ -107,7 +108,10 @@ smkluc$age.cat= ifelse (smkluc$age == "9","80+",
                                                                 ifelse (smkluc$age == "3","50-54",
                                                                         ifelse (smkluc$age == "2","45-49",
                                                                                "40-44"))))))))
-smkluc$age.cat
+
+
+comparison.age.age.cat <- cbind (smkluc$age, smkluc$age.cat)
+comparison.age.age.cat
 
 #make proportion of the dead 
 smkluc$prop.dead = smkluc$dead/smkluc$pop
@@ -144,6 +148,13 @@ plot.smoke.dead
 
 #c.	Fit a Logistic, a Poisson, and a Negative binomial regression model 
 #considering 'dead' as an outcome, age, and smoking status as exposures.
+
+smkluc$prop.dead
+smkluc$dead
+
+#a Logistic 
+Log.model <- glm(prop.dead~as.factor(age.cat)+as.factor(smoke.cat), family="binomial", data=smkluc, weight=pop)
+Log.model
 
 
 #Poisson
